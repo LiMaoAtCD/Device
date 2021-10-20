@@ -1,0 +1,16 @@
+PODS:
+  - CMDevice (0.1.0)
+
+DEPENDENCIES:
+  - CMDevice (from `../`)
+
+EXTERNAL SOURCES:
+  CMDevice:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CMDevice: 7b7eb04938771e02c6837bac21c2a344420c319c
+
+PODFILE CHECKSUM: 9fe80cf567f62c00e189f41ca787cfcfbef45527
+
+COCOAPODS: 1.11.0

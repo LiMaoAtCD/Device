@@ -1,0 +1,22 @@
+{
+  "name": "CMDevice",
+  "version": "0.1.0",
+  "summary": "A short description of CMDevice.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/micheal_zj@outlook.com/CMDevice",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "micheal_zj@outlook.com": "micheal@thecover.co"
+  },
+  "source": {
+    "git": "https://github.com/micheal_zj@outlook.com/CMDevice.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "CMDevice/Classes/**/*"
+}
