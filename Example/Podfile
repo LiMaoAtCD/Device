@@ -1,0 +1,6 @@
+use_frameworks!
+target 'CMDevice_Tests' do
+  pod 'CMDevice', :path => '../'
+  
+  
+end
