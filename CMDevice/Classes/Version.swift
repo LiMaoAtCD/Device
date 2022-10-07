@@ -37,6 +37,11 @@ public enum Version: String {
     case iPhone13Mini
     case iPhone13Pro
     case iPhone13ProMax
+    case iPhoneSE3
+    case iPhone14
+    case iPhone14Plus
+    case iPhone14Pro
+    case iPhone14Pro_Max
     
     /*** iPad ***/
     case iPad1
@@ -80,6 +85,7 @@ public enum Version: String {
     case iPodTouch4Gen
     case iPodTouch5Gen
     case iPodTouch6Gen
+    case iPodTouch7Gen
     
     /*** simulator ***/
     case simulator
