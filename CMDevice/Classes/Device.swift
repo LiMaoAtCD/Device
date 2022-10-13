@@ -283,7 +283,7 @@ extension Device {
 
     /// 安全区域
     /// - Returns: 返回安全区域
-    static func safeAreaInsets() -> UIEdgeInsets {
+    static public func safeAreaInsets() -> UIEdgeInsets {
         if #available(iOS 13.0, *) {
             let scene = UIApplication.shared.connectedScenes.first
             guard let windowScene = scene as? UIWindowScene else { return UIEdgeInsets.zero }
