@@ -231,7 +231,7 @@ extension Device {
 
     /// 是否是iPhoneX系列
     /// - Returns: 判断结果
-    static func isIPhoneXSeries() -> Bool {
+    static public func isIPhoneXSeries() -> Bool {
         if #available(iOS 11.0, *) {
             if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
                 return window.safeAreaInsets.bottom > 0
@@ -246,7 +246,7 @@ extension Device {
 
     /// 获取屏幕尺寸
     /// - Returns: 返回屏幕尺寸
-    static func screenSize() -> (kScreenWidth: CGFloat, kScreenHeight: CGFloat) {
+    static public func screenSize() -> (kScreenWidth: CGFloat, kScreenHeight: CGFloat) {
         let kbounds = UIScreen.main.bounds.size
         let width = min(kbounds.width, kbounds.height)
         let height = max(kbounds.width, kbounds.height)
@@ -256,7 +256,7 @@ extension Device {
 
     /// 获取状态栏高度
     /// - Returns: 状态栏高度
-    static func kStatusBarHeight() -> CGFloat {
+    static public func kStatusBarHeight() -> CGFloat {
         if #available(iOS 13.0, *) {
             let scene = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
             let statusBarFrame = scene?.statusBarManager?.statusBarFrame
@@ -269,21 +269,21 @@ extension Device {
 
     /// 获取顶部安全距离
     /// - Returns: 顶部安全距离
-    static func safeDistance_top() -> CGFloat {
+    static public func safeDistance_top() -> CGFloat {
         return safeAreaInsets().top
     }
 
 
     /// 获取底部安全距离
     /// - Returns: 底部安全距离
-    static func safeDistance_bottom() -> CGFloat {
+    static public func safeDistance_bottom() -> CGFloat {
         return safeAreaInsets().bottom
     }
 
 
     /// 安全区域
     /// - Returns: 返回安全区域
-    fileprivate static func safeAreaInsets() -> UIEdgeInsets {
+    static func safeAreaInsets() -> UIEdgeInsets {
         if #available(iOS 13.0, *) {
             let scene = UIApplication.shared.connectedScenes.first
             guard let windowScene = scene as? UIWindowScene else { return UIEdgeInsets.zero }
