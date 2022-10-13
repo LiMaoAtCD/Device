@@ -255,15 +255,19 @@ open class Device {
 
 
     /// 获取状态栏高度
+    /// 假如因为状态栏隐藏导致取到的值为0则默认返回顶部安全距离
     /// - Returns: 状态栏高度
     static public func kStatusBarHeight() -> CGFloat {
+        var height: CGFloat = 0
         if #available(iOS 13.0, *) {
-            let scene = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
-            let statusBarFrame = scene?.statusBarManager?.statusBarFrame
-            return statusBarFrame?.height ?? 20.0
+            let barFrames = UIApplication.shared.connectedScenes.map({ $0 as? UIWindowScene }).compactMap({ $0?.statusBarManager?.statusBarFrame }).filter({ $0 != CGRect.zero })
+            if !barFrames.isEmpty, let one = barFrames.first {
+                height = one.height
+            }
         } else {
-            return UIApplication.shared.statusBarFrame.size.height
+            height = UIApplication.shared.statusBarFrame.size.height
         }
+        return height.isZero ? safeDistance_top() : height
     }
 
 
