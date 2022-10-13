@@ -1,6 +1,6 @@
 {
   "name": "CMDevice",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "summary": "A short description of CMDevice.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://code.thecover.cn/ios_team/cmdevice.git",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://code.thecover.cn/ios_team/cmdevice.git",
-    "tag": "0.2.2"
+    "tag": "0.2.3"
   },
   "swift_versions": [
     "5.0"
