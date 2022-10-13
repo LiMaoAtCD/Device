@@ -1,5 +1,5 @@
 PODS:
-  - CMDevice (0.1.0)
+  - CMDevice (0.2.2)
 
 DEPENDENCIES:
   - CMDevice (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CMDevice: faf9134bb891d8de9786e8312211d8f6bc0601c3
+  CMDevice: 61eea70256f4924051039e5d8d879444461f6756
 
 PODFILE CHECKSUM: c8fc3654f2bf29377a356991c35bfa2d53ed7b72
 

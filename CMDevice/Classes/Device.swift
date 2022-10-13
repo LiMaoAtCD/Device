@@ -147,7 +147,11 @@ open class Device {
                 return .screen5_4Inch
             case 844:
                 return .screen6_1Inch
+            case 852:
+                return .screen6_1Inch
             case 926:
+                return .screen6_7Inch
+            case 932:
                 return .screen6_7Inch
             case 896:
                 switch version() {
@@ -220,4 +224,75 @@ open class Device {
         return type() == .simulator
     }
 
+}
+
+// MARK: - 设备常量相关（安全距离、是否是x系列、屏幕尺寸、状态栏高度等）
+extension Device {
+
+    /// 是否是iPhoneX系列
+    /// - Returns: 判断结果
+    static func isIPhoneXSeries() -> Bool {
+        if #available(iOS 11.0, *) {
+            if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+                return window.safeAreaInsets.bottom > 0
+            }
+            if let window = UIApplication.shared.windows.first {
+                return window.safeAreaInsets.bottom > 0
+            }
+        }
+        return false
+    }
+
+
+    /// 获取屏幕尺寸
+    /// - Returns: 返回屏幕尺寸
+    static func screenSize() -> (kScreenWidth: CGFloat, kScreenHeight: CGFloat) {
+        let kbounds = UIScreen.main.bounds.size
+        let width = min(kbounds.width, kbounds.height)
+        let height = max(kbounds.width, kbounds.height)
+        return (width, height)
+    }
+
+
+    /// 获取状态栏高度
+    /// - Returns: 状态栏高度
+    static func kStatusBarHeight() -> CGFloat {
+        if #available(iOS 13.0, *) {
+            let scene = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first
+            let statusBarFrame = scene?.statusBarManager?.statusBarFrame
+            return statusBarFrame?.height ?? 20.0
+        } else {
+            return UIApplication.shared.statusBarFrame.size.height
+        }
+    }
+
+
+    /// 获取顶部安全距离
+    /// - Returns: 顶部安全距离
+    static func safeDistance_top() -> CGFloat {
+        return safeAreaInsets().top
+    }
+
+
+    /// 获取底部安全距离
+    /// - Returns: 底部安全距离
+    static func safeDistance_bottom() -> CGFloat {
+        return safeAreaInsets().bottom
+    }
+
+
+    /// 安全区域
+    /// - Returns: 返回安全区域
+    fileprivate static func safeAreaInsets() -> UIEdgeInsets {
+        if #available(iOS 13.0, *) {
+            let scene = UIApplication.shared.connectedScenes.first
+            guard let windowScene = scene as? UIWindowScene else { return UIEdgeInsets.zero }
+            guard let window = windowScene.windows.first else { return UIEdgeInsets.zero }
+            return window.safeAreaInsets
+        } else if #available(iOS 11.0, *) {
+            guard let window = UIApplication.shared.windows.first else { return UIEdgeInsets.zero }
+            return window.safeAreaInsets
+        }
+        return UIEdgeInsets.zero
+    }
 }

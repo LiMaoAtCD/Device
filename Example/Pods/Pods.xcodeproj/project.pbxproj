@@ -359,9 +359,9 @@
 			};
 			name = Release;
 		};
-		29D671E7DE0DA483CAE82514A4118C53 /* Release */ = {
+		2BC82B0467EF3354212FECA6E37B46AC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C9F75C53AED083A0F8B335E7E2D8E88 /* CMDevice.release.xcconfig */;
+			baseConfigurationReference = B190FAA347438E91B5BA974D8657BE1B /* CMDevice.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -384,13 +384,12 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		2CB42B76959D07DD7714F4140BA70DC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -488,9 +487,9 @@
 			};
 			name = Release;
 		};
-		D07D4EC9BEE483CD38E5B3332B03CB80 /* Debug */ = {
+		5FAD87358ED40DD91D1EB673C47D8255 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B190FAA347438E91B5BA974D8657BE1B /* CMDevice.debug.xcconfig */;
+			baseConfigurationReference = 5C9F75C53AED083A0F8B335E7E2D8E88 /* CMDevice.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -513,12 +512,13 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		F4FF6A0D1970CA9705974E3CB2134802 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -601,8 +601,8 @@
 		A4F5041C4C294ECDD1F1736A2FFC692A /* Build configuration list for PBXNativeTarget "CMDevice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D07D4EC9BEE483CD38E5B3332B03CB80 /* Debug */,
-				29D671E7DE0DA483CAE82514A4118C53 /* Release */,
+				2BC82B0467EF3354212FECA6E37B46AC /* Debug */,
+				5FAD87358ED40DD91D1EB673C47D8255 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
