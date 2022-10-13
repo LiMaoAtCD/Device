@@ -204,6 +204,7 @@ open class Device {
         return size.rawValue > self.size().rawValue ? true : false;
     }
 
+    // MARK: - 设备类型相关
     static public func isRetina() -> Bool {
         return UIScreen.main.scale > 1.0
     }
@@ -224,11 +225,6 @@ open class Device {
         return type() == .simulator
     }
 
-}
-
-// MARK: - 设备常量相关（安全距离、是否是x系列、屏幕尺寸、状态栏高度等）
-extension Device {
-
     /// 是否是iPhoneX系列
     /// - Returns: 判断结果
     static public func isIPhoneXSeries() -> Bool {
@@ -243,7 +239,7 @@ extension Device {
         return false
     }
 
-
+    // MARK: - 设备常量相关（安全距离、是否是x系列、屏幕尺寸、状态栏高度等）
     /// 获取屏幕尺寸
     /// - Returns: 返回屏幕尺寸
     static public func screenSize() -> (kScreenWidth: CGFloat, kScreenHeight: CGFloat) {
