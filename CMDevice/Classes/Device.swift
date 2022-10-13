@@ -205,6 +205,10 @@ open class Device {
     }
 
     // MARK: - 设备类型相关
+    static public func deviceString() -> String {
+        return getVersionCode()
+    }
+
     static public func isRetina() -> Bool {
         return UIScreen.main.scale > 1.0
     }
