@@ -288,15 +288,17 @@ open class Device {
     /// 安全区域
     /// - Returns: 返回安全区域
     static public func safeAreaInsets() -> UIEdgeInsets {
+        let defaultInset: UIEdgeInsets = isIPhoneXSeries() ? UIEdgeInsets.init(top: 44, left: 0, bottom: 34, right: 0) : UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
+
         if #available(iOS 13.0, *) {
             let scene = UIApplication.shared.connectedScenes.first
-            guard let windowScene = scene as? UIWindowScene else { return UIEdgeInsets.zero }
-            guard let window = windowScene.windows.first else { return UIEdgeInsets.zero }
+            guard let windowScene = scene as? UIWindowScene else { return defaultInset }
+            guard let window = windowScene.windows.first else { return defaultInset }
             return window.safeAreaInsets
         } else if #available(iOS 11.0, *) {
-            guard let window = UIApplication.shared.windows.first else { return UIEdgeInsets.zero }
+            guard let window = UIApplication.shared.windows.first else { return defaultInset }
             return window.safeAreaInsets
         }
-        return UIEdgeInsets.zero
+        return defaultInset
     }
 }
