@@ -58,23 +58,23 @@ open class Device {
 
 
             /*** iPad ***/
-            case "iPad1,1", "iPad1,2":                    return .iPad1
+            case "iPad1,1", "iPad1,2":                       return .iPad1
             case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4": return .iPad2
-            case "iPad3,1", "iPad3,2", "iPad3,3":           return .iPad3
-            case "iPad3,4", "iPad3,5", "iPad3,6":           return .iPad4
-            case "iPad6,11", "iPad6,12":                   return .iPad5
-            case "iPad7,5", "iPad7,6":                    return .iPad6
+            case "iPad3,1", "iPad3,2", "iPad3,3":            return .iPad3
+            case "iPad3,4", "iPad3,5", "iPad3,6":            return .iPad4
+            case "iPad6,11", "iPad6,12":                     return .iPad5
+            case "iPad7,5", "iPad7,6":                       return .iPad6
             case "iPad7,11", "iPad7,12":                     return .iPad7
             case "iPad11,6", "iPad11,7":                     return .iPad8
             case "iPad12,1", "iPad12,2":                     return .iPad9
-            case "iPad4,1", "iPad4,2", "iPad4,3":           return .iPadAir
-            case "iPad5,3", "iPad5,4":                     return .iPadAir2
-            case "iPad11,3", "iPad11,4":                   return .iPadAir3
+            case "iPad4,1", "iPad4,2", "iPad4,3":            return .iPadAir
+            case "iPad5,3", "iPad5,4":                       return .iPadAir2
+            case "iPad11,3", "iPad11,4":                     return .iPadAir3
             case "iPad13,1", "iPad13,2":                     return .iPadAir4
-            case "iPad2,5", "iPad2,6", "iPad2,7":           return .iPadMini
-            case "iPad4,4", "iPad4,5", "iPad4,6":           return .iPadMini2
-            case "iPad4,7", "iPad4,8", "iPad4,9":           return .iPadMini3
-            case "iPad5,1", "iPad5,2":                     return .iPadMini4
+            case "iPad2,5", "iPad2,6", "iPad2,7":            return .iPadMini
+            case "iPad4,4", "iPad4,5", "iPad4,6":            return .iPadMini2
+            case "iPad4,7", "iPad4,8", "iPad4,9":            return .iPadMini3
+            case "iPad5,1", "iPad5,2":                       return .iPadMini4
             case "iPad11,1", "iPad11,2":                     return .iPadMini5
             case "iPad14,1", "iPad14,2":                     return .iPadMini6
 
@@ -89,7 +89,7 @@ open class Device {
             case "iPad8,11", "iPad8,12":                     return .iPadPro12_Inch4
             case "iPad13,4", "iPad13,5", "iPad13,6", "iPad13,7": return .iPadPro11_Inch3
             case "iPad13,8", "iPad13,9", "iPad13,10", "iPad13,11": return .ipadPro12_Inch5
-            case "AudioAccessory1,1": return .homePod
+            case "AudioAccessory1,1":                        return .homePod
 
             /*** iPod ***/
             case "iPod1,1":                                  return .iPodTouch1Gen
@@ -101,7 +101,7 @@ open class Device {
             case "iPod9,1":                                  return .iPodTouch7Gen
 
             /*** Simulator ***/
-            case "i386", "x86_64", "arm64":                           return .simulator
+            case "i386", "x86_64", "arm64":                  return .simulator
 
             default:                                         return .unknown
         }
@@ -267,7 +267,7 @@ open class Device {
         } else {
             height = UIApplication.shared.statusBarFrame.size.height
         }
-        return height.isZero ? safeDistance_top() : height
+        return height.isZero ? default_values().statusBarHeight : height
     }
 
 
@@ -285,20 +285,54 @@ open class Device {
     }
 
 
-    /// 安全区域
+    /// 安全区域，只针对iPhone系列，不支持ipad和touch
     /// - Returns: 返回安全区域
     static public func safeAreaInsets() -> UIEdgeInsets {
-        let defaultInset: UIEdgeInsets = isIPhoneXSeries() ? UIEdgeInsets.init(top: 44, left: 0, bottom: 34, right: 0) : UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
-
+        /**
+         下面是代码获取，由于代码获取和应用生命周期相关，可能会出现取值为0的情况，所以添加了默认值的兜底处理
+         */
+        let defaultInset = default_values().safeInsets
+        var safeInsets: UIEdgeInsets = UIEdgeInsets.zero
         if #available(iOS 13.0, *) {
             let scene = UIApplication.shared.connectedScenes.first
-            guard let windowScene = scene as? UIWindowScene else { return defaultInset }
-            guard let window = windowScene.windows.first else { return defaultInset }
-            return window.safeAreaInsets
+            if let windowScene = scene as? UIWindowScene, let window = windowScene.windows.first {
+                safeInsets = window.safeAreaInsets
+            }
         } else if #available(iOS 11.0, *) {
-            guard let window = UIApplication.shared.windows.first else { return defaultInset }
-            return window.safeAreaInsets
+            if let window = UIApplication.shared.windows.first {
+                safeInsets = window.safeAreaInsets
+            }
         }
-        return defaultInset
+        // 如果取到的安全区间为0则根据机型返回默认区域
+        guard safeInsets != .zero else { return defaultInset }
+        return safeInsets
+    }
+
+    static private func default_values() -> (safeInsets: UIEdgeInsets, statusBarHeight: CGFloat) {
+        let version = getVersion(code: getVersionCode())
+        switch version {
+            case .iPhone4, .iPhone4S ,
+                    .iPhone5, .iPhone5C, .iPhone5S,
+                    .iPhone6, .iPhone6Plus, .iPhone6S, .iPhone6SPlus,
+                    .iPhone7, .iPhone7Plus,
+                    .iPhone8, .iPhone8Plus:
+                return (UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0), 20)
+            case .iPhoneX, .iPhoneXS, .iPhoneXR, .iPhoneXS_Max, .iPhone11Pro, .iPhone11Pro_Max:
+                return (UIEdgeInsets.init(top: 44, left: 0, bottom: 34, right: 0), 44)
+            case .iPhone11:
+                return (UIEdgeInsets.init(top: 48, left: 0, bottom: 34, right: 0), 48)
+
+            case .iPhone12Mini, .iPhone13Mini:
+                return (UIEdgeInsets.init(top: 50, left: 0, bottom: 34, right: 0), 50)
+            case .iPhone12, .iPhone12Pro, .iPhone12Pro_Max, .iPhone13, .iPhone13Pro, .iPhone13ProMax, .iPhone14, .iPhone14Plus :
+                return (UIEdgeInsets.init(top: 47, left: 0, bottom: 34, right: 0), 47)
+            case .iPhone14Pro, .iPhone14Pro_Max:
+                return (UIEdgeInsets.init(top: 59, left: 0, bottom: 34, right: 0), 54)
+            case .iPhoneSE, .iPhoneSE3:
+                return (UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0), 20)
+            // ipad以及touch暂不支持，默认返回X系列安全区
+            default:
+                return (UIEdgeInsets.init(top: 47, left: 0, bottom: 34, right: 0), 47)
+        }
     }
 }
